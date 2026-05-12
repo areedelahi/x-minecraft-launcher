@@ -14,7 +14,9 @@ import { useTextFieldBehavior } from '@/composables/textfieldBehavior'
 import { kTheme } from '@/composables/theme'
 import { vContextMenu } from '@/directives/contextMenu'
 import { getInstanceIcon } from '@/util/favicon'
+import { kServerStatusCache, useInstancesServerStatus } from '@/composables/serverStatus'
 import { injection } from '@/util/inject'
+
 import { useFocus, useLocalStorage } from '@vueuse/core'
 import { Instance } from '@xmcl/instance'
 import { Ref, computed, ref } from 'vue'
@@ -22,7 +24,11 @@ import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { isDark } = injection(kTheme)
+const serverStatusCache = injection(kServerStatusCache)
+const { refresh: refreshServers, pinging: pingingServers } = useInstancesServerStatus()
+
 const arrowColor = computed(() => (isDark.value ? 'white' : 'black'))
+
 const { news } = useMojangNews()
 const { news: launcherNews } = useLauncherNews()
 const { getDateString } = useDateString()
@@ -330,7 +336,17 @@ function openInBrowser(url: string) {
                 <v-icon size="small">view_list</v-icon>
               </v-btn>
             </v-btn-toggle>
+            <v-btn
+              icon
+              size="small"
+              class="mr-2"
+              :loading="pingingServers"
+              @click="refreshServers"
+            >
+              <v-icon size="small">refresh</v-icon>
+            </v-btn>
             <v-btn color="primary" @click="openAddInstanceDialog" size="small">
+
               <v-icon start size="small">add</v-icon>
               {{ t('instances.add') }}
             </v-btn>
@@ -375,7 +391,30 @@ function openInBrowser(url: string) {
               <div class="instance-info">
                 <div class="instance-name">{{ instance.name }}</div>
                 <div class="instance-version">{{ instance.runtime.minecraft }}</div>
+                <div
+                  v-if="instance.server"
+                  class="flex items-center gap-1.5 mt-1"
+                >
+                  <div
+                    class="w-2 h-2 rounded-full"
+                    :class="{
+                      'bg-green-500 shadow-[0_0_4px_rgba(34,197,94,0.6)]': serverStatusCache[`${instance.server.host}:${instance.server.port ?? 25565}`]?.ping > 0,
+                      'bg-red-500': serverStatusCache[`${instance.server.host}:${instance.server.port ?? 25565}`]?.ping <= 0,
+                      'bg-gray-500': !serverStatusCache[`${instance.server.host}:${instance.server.port ?? 25565}`]
+                    }"
+                  />
+                  <div class="text-[10px] text-gray-400 truncate max-w-[80px]">
+                    {{ instance.server.host }}
+                  </div>
+                  <div
+                    v-if="serverStatusCache[`${instance.server.host}:${instance.server.port ?? 25565}`]?.players"
+                    class="text-[10px] text-gray-500 ml-auto"
+                  >
+                    {{ serverStatusCache[`${instance.server.host}:${instance.server.port ?? 25565}`].players.online }}/{{ serverStatusCache[`${instance.server.host}:${instance.server.port ?? 25565}`].players.max }}
+                  </div>
+                </div>
               </div>
+
             </div>
           </div>
         </div>

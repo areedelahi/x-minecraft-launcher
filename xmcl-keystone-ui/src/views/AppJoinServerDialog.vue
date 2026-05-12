@@ -167,11 +167,16 @@ const { status, pinging, refresh } = useServerStatus(server, ref(undefined));
 
 // Initialize fields when dialog opens
 watch(isShown, (shown) => {
-  if (shown && instance.value?.server) {
-    const s = instance.value.server;
-    serverHost.value = s.host;
-    serverPort.value = s.port;
-    serverName.value = parameter.value?.serverName || "";
+  if (shown && instance.value) {
+    if (instance.value.server) {
+      const s = instance.value.server;
+      serverHost.value = s.host;
+      serverPort.value = s.port;
+    } else {
+      serverHost.value = "";
+      serverPort.value = undefined;
+    }
+    serverName.value = parameter.value?.serverName || instance.value.name || "";
   } else if (shown) {
     serverHost.value = "";
     serverPort.value = undefined;
@@ -179,11 +184,13 @@ watch(isShown, (shown) => {
   }
 });
 
+
 const onSave = async () => {
   if (!instance.value || !serverHost.value) return;
 
   await editInstance({
     instancePath: instance.value.path,
+    name: serverName.value || instance.value.name,
     server: {
       host: serverHost.value,
       port: serverPort.value,
@@ -193,6 +200,7 @@ const onSave = async () => {
   hide();
   parameter.value?.onSave?.();
 };
+
 
 const onCancel = () => {
   hide();

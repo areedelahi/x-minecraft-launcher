@@ -1,5 +1,7 @@
 import { PingServerOptions, ServerStatus, ServerStatusServiceKey } from '@xmcl/runtime-api'
-import { InjectionKey, Ref, computed, ref, watch } from 'vue'
+import { InjectionKey, Ref, computed, ref, watch, onMounted, onUnmounted } from 'vue'
+import { useIntervalFn } from '@vueuse/core'
+
 
 import { useService } from '@/composables'
 import { useLocalStorageCache } from '@/composables/cache'
@@ -84,10 +86,14 @@ export function useInstancesServerStatus() {
     pinging.value = true
     return Promise.all(instances.value.map(i => i.server).filter(<T>(v: T | null | undefined): v is T => !!v).map(refreshOne)).finally(() => { pinging.value = false })
   }
+
+  const { pause, resume } = useIntervalFn(refresh, 5 * 60 * 1000)
+
   return {
     pinging,
     refresh }
 }
+
 
 export const kServerStatus: InjectionKey<ReturnType<typeof useServerStatus>> = Symbol('ServerStatus')
 

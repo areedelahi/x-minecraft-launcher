@@ -55,6 +55,8 @@
           persistent
         />
       </GridItem>
+
+
     </GridLayout>
   </div>
 </template>
@@ -71,6 +73,8 @@ import HomeSavesCard from './HomeSavesCard.vue'
 import HomeScreenshotCard from './HomeScreenshotCard.vue'
 import HomeShaderPackCard from './HomeShaderPackCard.vue'
 
+
+
 const { instance } = injection(kInstance)
 
 enum CardType {
@@ -80,6 +84,8 @@ enum CardType {
   Save,
   Screenshots,
 }
+
+
 
 provide(kUpstream, computed(() => ({ upstream: instance.value.upstream, minecraft: instance.value.runtime.minecraft })))
 
@@ -121,6 +127,8 @@ const layouts = useLocalStorageCache('cardsLayout', () => ({
     { x: 6, y: 0, w: 3, h: 4, minW: 2, minH: 4, i: rawType(CardType.ShaderPack) },
     { x: 3, y: 4, w: 6, h: 5, minW: 3, minH: 4, i: rawType(CardType.Screenshots) },
   ],
+
+
   sm: [
     { x: 0, y: 0, w: 2, h: 6, minW: 2, minH: 4, i: rawType(CardType.Mod) },
     { x: 2, y: 0, w: 2, h: 5, minW: 2, minH: 4, i: rawType(CardType.ResourcePack) },
@@ -135,6 +143,8 @@ const layouts = useLocalStorageCache('cardsLayout', () => ({
     { x: 2, y: 0, w: 2, h: 4, minW: 2, minH: 4, i: rawType(CardType.ShaderPack) },
     { x: 2, y: 8, w: 2, h: 4, minW: 1, minH: 4, i: rawType(CardType.Screenshots) },
   ],
+
+
 }), JSON.stringify, JSON.parse)
 
 const layout = ref([] as GridItemType[])

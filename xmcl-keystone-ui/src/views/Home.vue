@@ -21,7 +21,13 @@
             />
           </div>
         </Transition>
+        <HomeServerCard
+          v-if="instance.server"
+          class="mb-4 mt-4"
+        />
+
         <HomeGrid />
+
         <HomeUpstreamCurseforge
           v-if="instance.upstream && instance.upstream.type === 'curseforge-modpack'"
           :id="instance.upstream.modId"
@@ -56,7 +62,10 @@ import type { DriveStep } from 'driver.js'
 import HomeCriticalError from './HomeCriticalError.vue'
 import HomeFocusFooter from './HomeFocusFooterV2.vue'
 import HomeGrid from './HomeGrid.vue'
+import HomeServerCard from './HomeServerCard.vue'
 import HomeUpstreamCurseforge from './HomeUpstreamCurseforge.vue'
+
+
 import HomeUpstreamFeedTheBeast from './HomeUpstreamFeedTheBeast.vue'
 import HomeUpstreamModrinth from './HomeUpstreamModrinth.vue'
 // import ScreenshotGalleryDialog from '@/components/ScreenshotGalleryDialog.vue'

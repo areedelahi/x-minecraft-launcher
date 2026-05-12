@@ -30,6 +30,10 @@
           <span v-if="!!upstream" ref="newsRef" @click="onSelectUpdates" class="cursor-pointer" :class="{ 'selected': selected === 1 }">
             {{ t('instance.updates') }}
           </span>
+          <span v-if="instance.server" ref="serverRef" @click="onSelectServer" class="cursor-pointer" :class="{ 'selected': selected === 2 }">
+            {{ t('shared.server') }}
+          </span>
+
         </div>
           <div class="flex-grow" />
           <div class="controls" style="margin-right: 0.18rem">
@@ -269,7 +273,9 @@ const active = useElementHover(root)
 
 const contentRef = ref<HTMLElement>()
 const newsRef = ref<HTMLElement>()
+const serverRef = ref<HTMLElement>()
 const contentSize = useElementSize(contentRef)
+
 function noop(v: any) {
 }
 
@@ -278,15 +284,19 @@ const underlineLeft = computed(() => {
   noop(current)
   if (selected.value === 0) return 0
   const contentWidth = contentRef.value?.offsetWidth || 0
-  return contentWidth + 16
+  if (selected.value === 1) return contentWidth + 16
+  const newsWidth = newsRef.value?.offsetWidth || 0
+  return contentWidth + newsWidth + 32
 })
 
 const underlineWidth = computed(() => {
   const current = contentSize.width.value
   noop(current)
   if (selected.value === 0) return contentRef.value?.offsetWidth || 0
-  return newsRef.value?.offsetWidth || 0
+  if (selected.value === 1) return newsRef.value?.offsetWidth || 0
+  return serverRef.value?.offsetWidth || 0
 })
+
 
 const { install: installMod } = useService(InstanceModsServiceKey)
 function onDropMod(e: DragEvent) {
@@ -366,6 +376,10 @@ async function onInstallVersion(v: StoreProjectVersion) {
 }
 
 const { getDateString } = useDateString()
+import { useInstanceServerStatus } from '@/composables/serverStatus'
+
+const { status: serverStatus, refresh: refreshServer, pinging: pingingServer } = useInstanceServerStatus(instance)
+
 const items = computed(() => {
   if (selected.value === 0) {
     return [
@@ -425,7 +439,7 @@ const items = computed(() => {
         icon: 'update',
         tooltip: getDateString('fileDate' in v ? v.fileDate : v.date_published),
         text: 'name' in v ? v.name : v.displayName,
-        highlighted: upstream.value?.type === 'modrinth-modpack' && upstream.value.versionId === v.id || upstream.value?.type === 'curseforge-modpack' && upstream.value.fileId === v.id,
+        highlighted: (upstream.value?.type === 'modrinth-modpack' && upstream.value.versionId === v.id) || (upstream.value?.type === 'curseforge-modpack' && (upstream.value as any).fileId === v.id),
         install: () => {
           onInstallVersion(version)
           showVersionDialog.value = false
@@ -437,18 +451,41 @@ const items = computed(() => {
         drop: () => {}
       }
     })
-  } else {
-    return [{
-      icon: 'extension',
-      tooltip: t('mod.name'),
-      text: dragover.value ? t('mod.dropHint') : t('mod.enabled', { count: enabledMods.value.length }),
-      highlighted: false,
-      install: () => push('/mods?source=remote'),
-      setting: () => push('/mods'),
-      drop: onDropMod
-    }]
+  } else if (selected.value === 2) {
+    return [
+      {
+        icon: 'dns',
+        tooltip: t('server.address'),
+        text: instance.value.server?.host || '',
+        highlighted: false,
+        install: () => {},
+        setting: () => {},
+        drop: () => {}
+      },
+      {
+        icon: 'signal_cellular_alt',
+        tooltip: t('server.ping'),
+        text: serverStatus.value.ping > 0 ? `${serverStatus.value.ping}ms` : t('server.offline'),
+        highlighted: false,
+        install: () => refreshServer(),
+        setting: () => refreshServer(),
+        drop: () => {}
+      },
+      {
+        icon: 'people',
+        tooltip: t('server.players'),
+        text: serverStatus.value.ping > 0 ? `${serverStatus.value.players.online} / ${serverStatus.value.players.max}` : '-',
+        highlighted: false,
+        install: () => {},
+        setting: () => {},
+        drop: () => {}
+      }
+    ]
   }
+  return []
 })
+
+
 
 const selected = ref(0)
 function onSelectContent() {
@@ -458,6 +495,11 @@ function onSelectContent() {
 function onSelectUpdates() {
   selected.value = 1
 }
+
+function onSelectServer() {
+  selected.value = 2
+}
+
 watch(instance, () => {
   selected.value = 0
 })
