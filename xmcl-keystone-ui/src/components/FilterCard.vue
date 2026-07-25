@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="surface-card-subsection w-full flex-shrink-0"
+    class="surface-panel w-full flex-shrink-0"
     variant="flat"
     role="region"
     :aria-labelledby="titleId"
@@ -128,10 +128,15 @@ const isSelected = (id: string) => props.selected.includes(id)
 <style scoped>
 .filter-item {
   color: rgba(var(--v-theme-on-surface), 0.7);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, color 0.2s ease;
 }
 .filter-item:hover {
   background: rgba(var(--v-theme-on-surface), 0.06);
   color: rgb(var(--v-theme-on-surface));
+  transform: scale(1.03);
+}
+.filter-item:active {
+  transform: scale(0.95);
 }
 .filter-item--selected {
   background: rgba(var(--v-theme-primary), 0.12);

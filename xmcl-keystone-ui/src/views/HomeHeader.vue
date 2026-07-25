@@ -2,7 +2,15 @@
   <div
     class="header sticky max-w-full select-none transition-all px-2"
     :style="{
+<<<<<<< Updated upstream
       '--app-bar-blur': blurAppBar + 'px',
+=======
+      'backdrop-filter': compact ? `blur(${blurAppBar || 12}px)` : '',
+      '-webkit-backdrop-filter': compact ? `blur(${blurAppBar || 12}px)` : '',
+      'background-color': compact ? 'var(--v-theme-background)' : 'transparent',
+      'border-bottom': compact ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid transparent',
+      'z-index': 20,
+>>>>>>> Stashed changes
     }"
     :class="{
       compact,
@@ -171,4 +179,9 @@ const overcount = ref(0)
   padding-bottom: 1.25rem;
 }
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 </style>

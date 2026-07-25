@@ -74,11 +74,27 @@ export const vuetify = createVuetify({
       dark: {
         dark: true,
         colors: {
-          primary: '#4caf50',
+          primary: '#13C52F',
           accent: '#00e676',
         },
       },
     },
+  },
+  defaults: {
+    global: {
+      ripple: false,
+    },
+    VBtn: { rounded: 'pill' },
+    VCard: { rounded: 'xl' },
+    VDialog: { rounded: 'xl' },
+    VTextField: { variant: 'solo-filled', flat: true, rounded: 'lg' },
+    VSelect: { variant: 'solo-filled', flat: true, rounded: 'lg' },
+    VTextarea: { variant: 'solo-filled', flat: true, rounded: 'lg' },
+    VCombobox: { variant: 'solo-filled', flat: true, rounded: 'lg' },
+    VSwitch: { inset: true, color: 'primary' },
+    VProgressLinear: { rounded: 'pill' },
+    VSlider: { color: 'primary', trackSize: 4, thumbSize: 16 },
+    VCheckbox: { color: 'primary', trueIcon: 'check_circle', falseIcon: 'radio_button_unchecked' },
   },
 })
 

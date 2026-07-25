@@ -62,7 +62,13 @@ p {
 }
 
 html {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --highlight-color: #fbc02d;
+
+    ::selection {
+        background-color: rgba(19, 197, 47, 0.4);
+        color: white;
+    }
 
     /* ── Shared surface tokens (dialogs, menus, popovers) ──
        These are the FALLBACKS. The real source of truth lives in
@@ -71,13 +77,13 @@ html {
        its reactive refs onto <html> as `--surface-*` properties.
        Override them programmatically by injecting `kSurfaceTokens`
        and writing to the refs (a future settings UI will wire here). */
-    --surface-radius: 16px;                                              /* matches Vuetify `rounded="xl"` */
+    --surface-radius: 32px;                                              /* matches Vuetify `rounded="xl"` */
     --surface-border: 1px solid rgba(var(--v-theme-on-surface), 0.10);
-    --surface-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.35);
+    --surface-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.45);
 
     /* Frosted-glass background shared by dialogs, menus and popovers. */
-    --surface-bg: rgba(var(--v-theme-surface), 0.82);
-    --surface-blur: 48px;
+    --surface-bg: rgba(var(--v-theme-surface), 0.75);
+    --surface-blur: 64px;
 
     /* Menu-only: inner padding + list-item radius (dialogs don't share). */
     --surface-menu-padding: 6px;
@@ -88,9 +94,9 @@ html {
 
     /* Cards — three intentional tiers. Apply with the `.surface-card`,
        `.surface-card-subsection`, `.surface-card-item` utility classes. */
-    --card-radius: 16px;
-    --card-subsection-radius: 12px;
-    --card-item-radius: 10px;
+    --card-radius: 24px;
+    --card-subsection-radius: 16px;
+    --card-item-radius: 12px;
     --card-subsection-elevation: 0;  /* Vuetify elevation prop number (read via JS, not CSS) */
     --card-subsection-bg: rgb(var(--v-theme-surface));
     --card-subsection-border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
@@ -99,8 +105,8 @@ html {
        interaction as `.surface-card-clickable` but with the small
        item radius and no lift / shadow. */
     --card-row-bg: rgb(var(--v-theme-surface));
-    --card-row-border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
-    --card-row-border-hover: 1px solid rgba(var(--v-theme-primary), 0.45);
+    --card-row-border: 1px solid rgba(var(--v-theme-on-surface), 0.04);
+    --card-row-border-hover: 1px solid rgba(var(--v-theme-primary), 0.25);
     --card-row-active-scale: 0.98;
     --card-row-transition: border-color 0.2s ease, background-color 0.15s ease, transform 0.1s ease;
     --card-bg: transparent;          /* let Vuetify's surface color show through */
@@ -126,14 +132,47 @@ html {
     --card-clickable-border-hover: 1px solid rgba(var(--v-theme-primary), 0.35);
     --card-clickable-shadow-hover: 0 12px 24px -8px rgba(0, 0, 0, 0.25),
                                     0 4px 12px -4px rgba(0, 0, 0, 0.15);
-    --card-clickable-lift: -4px;
+    --card-clickable-lift: -6px;
     --card-clickable-active-scale: 0.98;
     --card-clickable-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
                                  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                                 border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                                 border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                                 background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.v-list-item,
+.v-field--variant-outlined {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    border-radius: 12px !important;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.v-field--variant-outlined .v-field__outline {
+    display: none !important;
+}
+.v-field--variant-outlined.v-field--focused {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 0 0 2px rgba(var(--v-theme-primary), 0.5) !important;
+}
+
+.v-application .v-btn:not(.v-btn--icon):not(.system-btn) {
+    border-radius: 9999px;
+}
+
+.v-application .v-btn-group .v-btn {
+    border-radius: 0 !important;
+}
+
+.v-btn, .v-list-item, .v-card.v-card--link, .system-bar-badge, .card-clickable, .system-btn {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+}
+
+.v-btn:hover, .v-list-item:hover, .system-bar-badge:hover, .system-btn:hover {
+    filter: brightness(1.05);
+}
+
+.v-btn:active, .v-list-item:active, .v-card.v-card--link:active, .system-bar-badge:active, .card-clickable:active, .system-btn:active {
+    transform: scale(0.94) !important;
+    filter: brightness(0.9);
+}.v-list-item,
 .v-list-item:hover:before,
 .v-list-item:focus:before {
     border-radius: var(--card-item-radius);
@@ -254,7 +293,7 @@ html ::-webkit-scrollbar {
 }
 
 .v-menu > .v-overlay__content > .v-list .v-list-item:hover {
-    background-color: rgba(var(--v-theme-on-surface), 0.08);
+    background-color: rgba(var(--v-theme-on-surface), 0.05);
 }
 
 /* ── Dialogs share the menu/popover language ──
@@ -783,9 +822,15 @@ a {
 }
 
 .v-dialog > .v-overlay__content > *:first-child {
+<<<<<<< Updated upstream
     -webkit-backdrop-filter: blur(var(--surface-blur));
     backdrop-filter: blur(var(--surface-blur));
     background: var(--surface-bg) !important;
+=======
+    -webkit-backdrop-filter: blur(48px);
+    backdrop-filter: blur(48px);
+    background: color-mix(in srgb, var(--v-theme-surface) 90%, transparent) !important;
+>>>>>>> Stashed changes
     color: rgb(var(--v-theme-on-surface));
     border: var(--surface-border);
     border-radius: var(--surface-dialog-radius) !important;
@@ -815,4 +860,29 @@ a {
    theme's surface contrast like other Vuetify dividers. */
 .v-chip--variant-outlined {
   border-color: rgba(var(--v-border-color), var(--v-border-opacity)) !important;
+}
+
+.v-slider-thumb__surface {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+.v-slider-thumb:hover .v-slider-thumb__surface {
+    transform: scale(1.25) !important;
+}
+.v-slider-thumb:active .v-slider-thumb__surface {
+    transform: scale(0.85) !important;
+}
+
+.v-slider-track__fill {
+    box-shadow: 0 0 6px rgba(var(--v-theme-primary), 0.6) !important;
+}
+
+.v-checkbox .v-selection-control__input > .v-icon {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+.v-checkbox .v-selection-control__input:hover > .v-icon {
+    transform: scale(1.15) !important;
+}
+.v-checkbox .v-selection-control__input:active > .v-icon {
+    transform: scale(0.8) !important;
 }

@@ -5,7 +5,11 @@
     role="group"
     aria-orientation="horizontal"
     :aria-label="text"
+<<<<<<< Updated upstream
     class="flex flex-grow-0 items-center"
+=======
+    class="flex flex-grow-0 launch-group"
+>>>>>>> Stashed changes
   >
     
     <div
@@ -156,6 +160,7 @@ function onPlayClick() {
 </script>
 
 <style scoped>
+<<<<<<< Updated upstream
 .btn-launch {
   border-radius: 9999px;
   height: 64px;
@@ -233,6 +238,25 @@ function onPlayClick() {
 .launch-pill.short .btn-play-inset :deep(.v-icon),
 .launch-pill.short .btn-menu-inset :deep(.v-icon) {
   font-size: 22px;
+=======
+.launch-group {
+  border-radius: 9999px;
+  overflow: visible;
+}
+.launch-group .v-btn {
+  border-radius: 0 !important;
+}
+.launch-group .btn-left {
+  border-top-left-radius: 9999px !important;
+  border-bottom-left-radius: 9999px !important;
+}
+.launch-group .btn-right {
+  border-top-right-radius: 9999px !important;
+  border-bottom-right-radius: 9999px !important;
+}
+
+.dark .launch-group .btn-right {
+>>>>>>> Stashed changes
 }
 
 @media (max-width: 850px) {

@@ -47,7 +47,8 @@
       </AppSideBarItem>
     </div>
 
-    <div class="sidebar__divider" />
+
+    <div class="sidebar__spacer" />
 
     <div
       ref="instancesScrollEl"
@@ -58,7 +59,8 @@
       <AppSideBarInstances />
     </div>
 
-    <div class="sidebar__divider" />
+
+    <div class="sidebar__spacer" />
 
     <div v-roving-tabindex role="group" class="sidebar__section">
       <AppSideBarItem
@@ -299,14 +301,21 @@ useDragAutoScroll(instancesScrollEl)
 .sidebar {
   min-width: 80px;
   width: 80px;
-  max-height: 100%;
-  height: 100%;
+  max-height: calc(100% - 32px);
+  height: calc(100% - 32px);
+  margin: 16px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+<<<<<<< Updated upstream
   border-radius: var(--surface-menu-item-radius);
+=======
+  border-radius: 24px;
+>>>>>>> Stashed changes
   padding: 8px 0;
   overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .sidebar__section {
@@ -333,10 +342,12 @@ useDragAutoScroll(instancesScrollEl)
 }
 
 .sidebar__divider {
+  display: none;
+}
+
+.sidebar__spacer {
   margin: 6px 16px;
   height: 2px;
-  border-radius: 1px;
-  background-color: rgba(255, 255, 255, 0.12);
   flex-shrink: 0;
 }
 

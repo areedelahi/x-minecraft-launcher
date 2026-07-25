@@ -353,8 +353,9 @@ async function onRemoveFriend(f: MinecraftFriend) {
   width: 280px;
   min-width: 280px;
   border-right: 1px solid rgba(var(--v-theme-on-surface), 0.08);
-  background: rgba(var(--v-theme-surface), 0.6);
+  background: var(--v-theme-background);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .cape-thumb {

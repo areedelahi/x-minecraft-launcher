@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute z-0 h-full w-full">
+  <div class="absolute z-0 h-full w-full overflow-hidden">
     <transition
       name="fade-transition"
     >
@@ -46,13 +46,24 @@
         playsinline
         :muted="isMuted"
       />
+      <img
+        v-else-if="backgroundType === BackgroundType.NONE && latestUpdatePoster"
+        :key="latestUpdatePoster"
+        :src="latestUpdatePoster"
+        class="absolute z-0 h-full w-full object-cover"
+        :style="{ filter: 'blur(60px) brightness(0.6) saturate(1.3)', transform: 'scale(1.2)' }"
+      >
     </transition>
 
     <transition
       name="fade-transition"
     >
       <div
+<<<<<<< Updated upstream
         v-if="((backgroundColorOverlay && !isHome) || backgroundType === BackgroundType.NONE) && !customBackgroundVideo"
+=======
+        v-if="(backgroundColorOverlay && !isHome) || (backgroundType === BackgroundType.NONE && !latestUpdatePoster)"
+>>>>>>> Stashed changes
         class="z-3 absolute h-full w-full"
         :style="{ 'background': backgroundColor }"
       />
@@ -65,11 +76,18 @@ import Particles from '@/components/Particles.vue'
 import { injection } from '@/util/inject'
 import { kTheme, BackgroundType } from '@/composables/theme'
 import { kInstanceLaunch } from '@/composables/instanceLaunch'
+<<<<<<< Updated upstream
 import { kCustomCss } from '@/composables/customCss'
 import { inject } from 'vue'
 
 const customCss = inject(kCustomCss)
 const customBackgroundVideo = computed(() => customCss?.customBackgroundVideo.value || '')
+=======
+import { useMojangNews } from '@/composables/mojangNews'
+
+const { news } = useMojangNews()
+const latestUpdatePoster = computed(() => news.value?.[0]?.playPageImage?.url)
+>>>>>>> Stashed changes
 
 const { sideBarColor, backgroundColorOverlay, backgroundColor, blur, backgroundImage, backgroundType, particleMode, backgroundImageFit, volume } = injection(kTheme)
 const videoRef = ref(null as null | HTMLVideoElement)

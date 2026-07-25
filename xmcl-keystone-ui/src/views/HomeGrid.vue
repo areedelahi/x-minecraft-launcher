@@ -545,13 +545,8 @@ function getBackgroundMenu(): ContextMenuItem[] {
 .vgl-layout .vgl-item--placeholder {
   overflow: hidden;
   border-radius: 14px;
-  border: 1px solid rgba(var(--v-theme-primary), 0.55);
-  background:
-    linear-gradient(135deg, rgba(var(--v-theme-primary), 0.18), rgba(var(--v-theme-primary), 0.08)),
-    rgba(var(--v-theme-surface), 0.36);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 14px 40px rgba(var(--v-theme-primary), 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(var(--v-theme-surface), 0.1);
   backdrop-filter: blur(12px);
 }
 
@@ -560,7 +555,7 @@ function getBackgroundMenu(): ContextMenuItem[] {
   position: absolute;
   inset: 8px;
   border-radius: 10px;
-  border: 1px dashed rgba(var(--v-theme-primary), 0.5);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
 }
 
 .vgl-layout .vgl-item--dragging {
@@ -573,7 +568,7 @@ function getBackgroundMenu(): ContextMenuItem[] {
 }
 /* ── Modern card hover ── */
 .vgl-layout .vgl-item:hover:not(.vgl-item--placeholder):not(.vgl-item--dragging) > .v-card {
-  border: 1px solid rgba(var(--v-theme-primary), 0.45) !important;
+
 }
 
 /* ── Resize handle — diagonal grip lines ── */

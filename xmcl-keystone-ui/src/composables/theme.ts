@@ -80,7 +80,7 @@ export interface UIThemeDataV1 {
 
 export function getDefaultTheme(): UIThemeDataV1 {
   return {
-    dark: 'system',
+    dark: true,
     backgroundMusic: [],
     backgroundMusicPlayOrder: 'sequential',
     colors: {
@@ -88,7 +88,7 @@ export function getDefaultTheme(): UIThemeDataV1 {
       lightSideBarColor: '#FFFFFFFF',
       darkAppBarColor: '#111111FF',
       darkSideBarColor: '#11111166',
-      darkPrimaryColor: '#4caf50',
+      darkPrimaryColor: '#13C52F',
       darkBackground: '#121212A5',
       darkInfoColor: '#2196F3',
       darkErrorColor: '#FF5252',

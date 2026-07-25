@@ -18,15 +18,15 @@
       class="absolute left-0 bottom-0 z-20 m-0 p-0"
       indeterminate
     />
-    <v-card-item v-if="title">
-      <v-card-title>
-        <v-icon size="small" start>
+    <v-card-item v-if="title" class="pt-4 px-5 pb-2">
+      <v-card-title class="text-h6 font-weight-bold d-flex align-center">
+        <v-icon size="28" start class="mr-3 opacity-80">
           {{ icon }}
         </v-icon>
         {{ title }}
       </v-card-title>
     </v-card-item>
-    <v-card-text class="flex-grow relative pb-0">
+    <v-card-text class="flex-grow relative px-5 pb-2 text-body-1">
       <template v-if="refreshing && icons.length === 0">
         <v-skeleton-loader type="paragraph" />
       </template>
@@ -61,8 +61,13 @@
         </div>
       </template>
     </v-card-text>
+<<<<<<< Updated upstream
     <v-card-actions class="justify-between" v-if="button || additionButton">
       <v-btn v-if="button" ref="btnElem" :data-testid="button.testid" @click="emit('navigate')" variant="text">
+=======
+    <v-card-actions class="justify-between px-4 pb-4 pt-2" v-if="button || additionButton">
+      <v-btn v-if="button" ref="btnElem" @click="emit('navigate')" variant="tonal" rounded="pill" color="primary" class="px-6">
+>>>>>>> Stashed changes
         <v-icon v-if="button.icon" start>
           {{ button.icon }}
         </v-icon>
@@ -76,7 +81,9 @@
         color="primary"
         :data-testid="additionButton.testid"
         @click="emit('navigate-addition')"
-        variant="text"
+        variant="tonal"
+        rounded="pill"
+        class="px-6"
       >
         <v-icon class="material-icons-outlined" start>
           {{ additionButton.icon || 'add' }}
@@ -161,7 +168,17 @@ const highlighted = computed(() => globalDragover.value && dragover.value > 0)
   /* blur behand */
   container-type: size;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  background-color: rgba(var(--v-theme-surface), 0.4) !important;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, background-color 0.4s ease !important;
+}
+
+.home-card:hover {
+  background-color: rgba(var(--v-theme-surface), 0.6) !important;
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3) !important;
 }
 
 .btn {

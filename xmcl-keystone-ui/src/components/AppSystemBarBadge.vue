@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="system-bar-badge non-moveable flex flex-grow-0 cursor-pointer items-center rounded px-2 py-1 transition-all"
+    class="system-bar-badge non-moveable flex flex-grow-0 cursor-pointer items-center rounded-full px-4 py-1.5 transition-all"
     :aria-label="ariaLabel || text || undefined"
     @click="$emit('click', $event)"
   >

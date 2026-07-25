@@ -1,5 +1,9 @@
 <template>
+<<<<<<< Updated upstream
   <div class="store-entry h-full w-full flex flex-col overflow-y-auto custom-scrollbar lg:(flex-row overflow-hidden)">
+=======
+  <div class="store-entry h-full w-full overflow-hidden flex flex-col">
+>>>>>>> Stashed changes
     <v-progress-linear
       class="absolute left-0 top-0 z-20 m-0 p-0"
       :active="loading"
@@ -28,7 +32,15 @@
               <component :is="source.component" class="w-6 h-6 fill-current" />
               <span class="text-xs font-bold mt-2">{{ source.text }}</span>
               <div
+<<<<<<< Updated upstream
                 class="cross-overlay absolute inset-0 flex items-center justify-center rounded-xl transition-opacity duration-200"
+=======
+                v-for="source in sourcesList"
+                :key="source.id"
+                class="source-button card-clickable surface-card-row rounded-xl relative flex-1 flex flex-col items-center justify-center p-3"
+                :class="{ omitted: omitSources.includes(source.id) }"
+                @click="toggleSource(source.id)"
+>>>>>>> Stashed changes
               >
                 <v-icon color="red" size="60">close</v-icon>
               </div>

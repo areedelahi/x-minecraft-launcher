@@ -3,10 +3,16 @@
     v-roving-tabindex
     topbar
     window
+    height="48"
     role="toolbar"
     :aria-label="systemBarAriaLabel"
-    class="moveable static! flex w-full grow-0 gap-1 p-0 text-[.875rem]! bg-[transparent]! dark:color-[#ffffffb3] pr-0"
-    :style="{ 'backdrop-filter': `blur(${blurAppBar}px)` }"
+    class="moveable static! flex w-full grow-0 gap-2 p-0 text-[.875rem]! dark:color-[#ffffffb3] pr-0 z-50"
+    :style="{
+      'backdrop-filter': `blur(${blurAppBar || 12}px)`,
+      '-webkit-backdrop-filter': `blur(${blurAppBar || 12}px)`,
+      'background-color': 'var(--v-theme-background)',
+      'border-bottom': '1px solid rgba(255, 255, 255, 0.05)'
+    }"
   >
     <span
       v-if="back"

@@ -74,9 +74,9 @@ function onClick(event: MouseEvent) {
   border-radius: 50%;
   background-color: transparent;
   transition:
-    border-radius 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+    background-color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   overflow: hidden;
   cursor: default;
 }
@@ -87,25 +87,25 @@ function onClick(event: MouseEvent) {
 
 .sidebar-item--clickable:hover .sidebar-item__content {
   border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.18);
+  background-color: rgba(255, 255, 255, 0.10);
 }
 
 .sidebar-item--clickable.sidebar-item--colored:hover .sidebar-item__content {
-  background-color: var(--sidebar-item-color);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--sidebar-item-color);
 }
 
 .sidebar-item--active .sidebar-item__content,
 .sidebar-item.router-link-active .sidebar-item__content {
   border-radius: 16px;
-  background-color: var(--sidebar-item-color);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.10);
+  color: var(--sidebar-item-color);
 }
 
 .sidebar-item__icon {
   position: relative;
   z-index: 1;
-  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 /* Discord-style left pill indicator */
@@ -119,8 +119,8 @@ function onClick(event: MouseEvent) {
   background-color: white;
   transform: translateY(-50%);
   transition:
-    height 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+    opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   opacity: 0.85;
   pointer-events: none;
 }
